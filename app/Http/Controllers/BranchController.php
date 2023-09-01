@@ -14,10 +14,9 @@ class BranchController extends Controller
      */
     public function index(Request $request)
     {
-
         $branches =  Branch::query();
         if ($request->has('search')) {
-            $branches->where('name', 'like', '%' . $request->search . '%')->orWhere('owner', 'like', '%' . $request->search . '%');
+            $branches->where('name', 'like', '%' . $request->search . '%')->orWhere('location', 'like', '%' . $request->search . '%');
         }
         return view('branches.index', ['branches' => $branches->orderBy('created_at', 'desc')->orderBy('name')->paginate(10)]);
     }
@@ -41,10 +40,13 @@ class BranchController extends Controller
                 'name' => 'required',
                 'location' => 'required',
                 'company_id' => 'required'
+            ],
+            [
+                'company_id' => 'The company name field is required.'
             ]
         );
         Branch::create($request->except('_token'));
-        return redirect()->route('branch.index')->with('added', 'New branch Added');
+        return redirect()->route('branches.index')->with('added', 'New branch Added');
     }
 
     /**
@@ -74,11 +76,14 @@ class BranchController extends Controller
                 'name' => 'required',
                 'location' => 'nullable',
                 'company_id' => 'required'
+            ],
+            [
+                'company_id' => 'The company name field is required.'
             ]
         );
         $branch = Branch::findOrFail($id);
         $branch->update($request->except('_token'));
-        return redirect()->route('branch.index')->with('added', 'branch updated');
+        return redirect()->route('branches.index')->with('added', 'branch updated');
     }
 
     /**
@@ -88,10 +93,10 @@ class BranchController extends Controller
     {
         try {
             Branch::destroy($id);
-            return redirect()->route('branch.index')->with('added', 'branch delete');
-        } catch (Exception $e){
+            return redirect()->route('branches.index')->with('added', 'branch delete');
+        } catch (Exception $e) {
             Log::info($e->getMessage());
-            return redirect()->route('branch.index');
+            return redirect()->route('branches.index');
         }
     }
 }

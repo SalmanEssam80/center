@@ -8,14 +8,14 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="flex justify-end">
-                        <x-primary-link href="{{ route('branch.create') }}">Add new Branch</x-primary-button>
+                        <x-primary-link href="{{ route('branches.create') }}">Add new Branch</x-primary-button>
                     </div>
                     <!-- component -->
                     <div class="p-5">
                         @if (session()->has('added'))
                             <div>
                                 <div
-                                    class="flex justify-center items-center m-1 font-medium py-1 px-2 bg-white rounded-md text-green-100 bg-green-700 border border-green-700 ">
+                                    class="flex justify-center items-center m-1 font-medium py-1 px-2  rounded-md text-green-100 bg-green-700 border border-green-700 ">
                                     <div slot="avatar">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%"
                                             fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
@@ -50,7 +50,7 @@
                         @endif
 
                     </div>
-                    <form action="{{ route('branch.index') }}">
+                    <form action="{{ route('branches.index') }}">
                         <div class="flex justify-evenly">
                             <div>
                                 <x-input-label for='Search By Name'>Search By Name Or Owner</x-input-label>
@@ -122,12 +122,12 @@
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                         <div class="flex justify-evenly">
                                                             <div>
-                                                                <a href="{{ route('branch.edit', $branch->id) }}">
+                                                                <a href="{{ route('branches.edit', $branch->id) }}">
                                                                     <i class="fa-solid fa-pen-to-square"></i></a>
                                                             </div>
                                                             <div>
                                                                 <form method="POST"
-                                                                    action="{{ route('branch.destroy', $branch->id) }}">
+                                                                    action="{{ route('branches.destroy', $branch->id) }}">
                                                                     @csrf
                                                                     @method('delete')
                                                                     <button type="submit">

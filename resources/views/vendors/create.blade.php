@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">edit category</h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">Add new vendor</h2>
     </x-slot>
 
 
@@ -9,7 +9,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <fieldset class="p-5 border rounded-xl">
-                        <legend class="p-2 text-lg font-bold">edit category</legend>
+                        <legend class="p-2 text-lg font-bold">Add new vendor</legend>
                         {{-- @if ($errors->any())
                             <div>
                                 <ul>
@@ -19,38 +19,26 @@
                                 </ul>
                             </div>
                         @endif --}}
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('category.update',$category->id) }}">
-                            @method('patch')
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('vendor.store') }}">
                             @csrf
                             <div class="grid w-full grid-cols-2 gap-4">
                                 <div class="w-full">
                                     <x-input-label>Name</x-input-label>
-                                    <x-text-input value="{{old('name',$category->name)}}" name='name' class="w-full"></x-text-input>
+                                    <x-text-input value="{{old('name')}}" name='name' class="w-full"></x-text-input>
                                     @error('name')
                                         <div class="font-bold text-red-600">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="w-full">
-                                    <x-input-label>image</x-input-label>
-                                    <input type="file" name="image">
-                                    @error('image')
+                                    <x-input-label>logo</x-input-label>
+                                    <input type="file" name="logo">
+                                    @error('logo')
                                         <div class="font-bold text-red-600">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="w-full">
-                                    <x-input-label>category_id </x-input-label>
-                                    <select name="category_id">
-                                        <option disabled  value="">select category</option>
-                                        @foreach (App\models\Category::orderBy('name')->pluck('name', 'id')->toArray() as $id => $name)
-                                        <option {{ $id == old('category_id',$category->company_id) ? 'selected' : ''}} value="{{ $id }}">{{ $name}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('category_id')
-                                        <div class="font-bold text-red-600">{{ $message }}</div>
-                                    @enderror
-                                </div>
+
                                 <div class="flex justify-end mt-7">
-                                    <x-primary-button type="submit">Update</x-primary-button>
+                                    <x-primary-button type="submit">Add</x-primary-button>
                                 </div>
                             </div>
                         </form>

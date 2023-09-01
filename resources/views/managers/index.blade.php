@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">Companies</h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">Managers</h2>
     </x-slot>
 
     <div class="py-12">
@@ -8,7 +8,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="flex justify-end">
-                        <x-primary-link href="{{ route('company.create') }}">Add new company</x-primary-button>
+                        <x-primary-link href="{{ route('managers.create') }}">Add new manager</x-primary-button>
                     </div>
                     <!-- component -->
                     <div class="p-5">
@@ -50,7 +50,7 @@
                         @endif
 
                     </div>
-                    <form action="{{ route('company.index') }}">
+                    <form action="{{ route('managers.index') }}">
                         <div class="flex justify-evenly">
                             <div>
                                 <x-input-label for='Search By Name'>Search By Name Or Owner</x-input-label>
@@ -79,11 +79,11 @@
                                                 </th>
                                                 <th scope="col"
                                                     class="px-6 py-4 text-sm font-medium text-left text-gray-900">
-                                                    owner
+                                                    mobile
                                                 </th>
                                                 <th scope="col"
                                                     class="px-6 py-4 text-sm font-medium text-left text-gray-900">
-                                                    number tax
+                                                    Company
                                                 </th>
                                                 <th scope="col"
                                                     class="px-6 py-4 text-sm font-medium text-left text-gray-900">
@@ -96,38 +96,38 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($companies as $key => $company)
+                                            @forelse ($managers as $key => $manager)
                                                 <tr class="bg-gray-100 border-b">
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                                        {{ $key + $companies->firstItem() }}
+                                                        {{ $key + $managers->firstItem() }}
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                                        {{ $company->name }}
+                                                        {{ $manager->name }}
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                                        {{ $company->owner }}
+                                                        {{ $manager->mobile }}
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                                        {{ $company->tax_number }}
+                                                        {{ $manager->company->name }}
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                                        {{ date_format(date_create($company->created_at), 'Y-m-d h:i:s a') }}
+                                                        {{ date_format(date_create($manager->created_at), 'Y-m-d h:i:s a') }}
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                         <div class="flex justify-evenly">
                                                             <div>
-                                                                <a href="{{ route('company.edit', $company->id) }}">
+                                                                <a href="{{ route('managers.edit', $manager->id) }}">
                                                                     <i class="fa-solid fa-pen-to-square"></i></a>
                                                             </div>
                                                             <div>
                                                                 <form method="POST"
-                                                                    action="{{ route('company.delete', $company->id) }}">
+                                                                    action="{{ route('managers.destroy', $manager->id) }}">
                                                                     @csrf
                                                                     @method('delete')
                                                                     <button type="submit">
@@ -149,7 +149,7 @@
                                 </div>
                             </div>
                         </div>
-                        {{ $companies->links() }}
+                        {{ $managers->links() }}
                     </div>
                 </div>
             </div>

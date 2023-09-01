@@ -19,7 +19,7 @@
                                 </ul>
                             </div>
                         @endif --}}
-                        <form method="POST" action="{{ route('branch.store') }}">
+                        <form method="POST" action="{{ route('branches.store') }}">
                             @csrf
                             <div class="grid w-full grid-cols-2 gap-4">
                                 <div class="w-full">
@@ -44,7 +44,7 @@
                                         <option value="{{ $id }}">{{ $name}}</option>
                                         @endforeach
                                     </select>
-                                    @error('tax_number')
+                                    @error('company_id')
                                         <div class="font-bold text-red-600">{{ $message }}</div>
                                     @enderror
                                 </div>

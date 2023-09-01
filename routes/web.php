@@ -3,7 +3,9 @@
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VendorController;
 use App\Models\Company;
 use Database\Factories\BranchFactory;
 use Illuminate\Support\Facades\Route;
@@ -42,8 +44,10 @@ Route::middleware('auth')->group(function () {
         Route::delete('/delete/{id}',[CompanyController::class,'delete'])->name('delete');
     });
 
-    Route::resource('branch',BranchController::class);
+    Route::resource('branches',BranchController::class);
     Route::resource('category',CategoryController::class);
+    Route::resource('vendor',VendorController::class);
+    Route::resource('managers',ManagerController::class);
 });
 
 require __DIR__.'/auth.php';

@@ -19,7 +19,7 @@
                                 </ul>
                             </div>
                         @endif --}}
-                        <form method="POST" action="{{ route('category.store') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('category.store') }}">
                             @csrf
                             <div class="grid w-full grid-cols-2 gap-4">
                                 <div class="w-full">
@@ -31,7 +31,7 @@
                                 </div>
                                 <div class="w-full">
                                     <x-input-label>image</x-input-label>
-                                    <x-text-input value="{{old('image')}}" name='image' class="w-full"></x-text-input>
+                                    <input type="file" name="image" >
                                     @error('image')
                                         <div class="font-bold text-red-600">{{ $message }}</div>
                                     @enderror

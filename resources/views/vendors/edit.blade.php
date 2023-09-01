@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">edit branch</h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">Add new vendor</h2>
     </x-slot>
 
 
@@ -9,7 +9,7 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <fieldset class="p-5 border rounded-xl">
-                        <legend class="p-2 text-lg font-bold">edit branch</legend>
+                        <legend class="p-2 text-lg font-bold">edit vendor</legend>
                         {{-- @if ($errors->any())
                             <div>
                                 <ul>
@@ -19,38 +19,32 @@
                                 </ul>
                             </div>
                         @endif --}}
-                        <form method="POST" action="{{ route('branches.update', $branch->id) }}">
+                        <form method="POST" enctype="multipart/form-data"
+                            action="{{ route('vendor.update', $vendor->id) }}">
                             @method('patch')
                             @csrf
-                            <div class="grid w-full grid-cols-2 gap-4">
+                            <div class="grid w-full grid-cols-3 gap-4">
                                 <div class="w-full">
                                     <x-input-label>Name</x-input-label>
-                                    <x-text-input value="{{ old('name', $branch->name) }}" name='name'
+                                    <x-text-input value="{{ old('name', $vendor->name) }}" name='name'
                                         class="w-full"></x-text-input>
                                     @error('name')
                                         <div class="font-bold text-red-600">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="w-full">
-                                    <x-input-label>location</x-input-label>
-                                    <x-text-input value="{{ old('location', $branch->location) }}" name='location'
-                                        class="w-full"></x-text-input>
-                                    @error('location')
+                                    <x-input-label>Logo</x-input-label>
+                                    <input type="file" name="logo">
+                                    @error('logo')
                                         <div class="font-bold text-red-600">{{ $message }}</div>
                                     @enderror
                                 </div>
-                                <div class="w-full">
-                                    <x-input-label>Company</x-input-label>
-                                    <select name="company_id">
-                                        <option disabled  value="">select branch</option>
-                                        @foreach (App\models\Company::orderBy('name')->pluck('name', 'id')->toArray() as $id => $name)
-                                        <option {{ $id == old('company_id',$branch->company_id) ? 'selected' :''}} value="{{$id}}">{{ $name}}</option>
-                                        @endforeach
-                                    </select>
-                                    @error('company_id')
-                                        <div class="font-bold text-red-600">{{ $message }}</div>
-                                    @enderror
-                                </div>
+                                @if ($vendor->logo)
+                                    <div>
+                                        <x-input-label>Logo</x-input-label>
+                                        <img src="{{ asset('storage/' . $vendor->logo) }}" class="w-20 rounded">
+                                    </div>
+                                @endif
                                 <div class="flex justify-end mt-7">
                                     <x-primary-button type="submit">Update</x-primary-button>
                                 </div>

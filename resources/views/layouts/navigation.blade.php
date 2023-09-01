@@ -18,18 +18,28 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('company.index')" :active="request()->routeIs('company.index')">
+                    <x-nav-link :href="route('company.index')" :active="request()->routeIs('company.*')">
                        companies
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('branch.index')" :active="request()->routeIs('branch.index')">
+                    <x-nav-link :href="route('branches.index')" :active="request()->routeIs('branches.*')">
                         branches
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+                    <x-nav-link :href="route('managers.index')" :active="request()->routeIs('managers.*')">
+                        Manager
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
                         category
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('vendor.index')" :active="request()->routeIs('vendor.*')">
+                        Vendor
                     </x-nav-link>
                 </div>
             </div>
@@ -88,18 +98,28 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('company.index')" :active="request()->routeIs('company.index')">
+            <x-responsive-nav-link :href="route('company.index')" :active="request()->routeIs('company.*')">
                 companies
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('branch.index')" :active="request()->routeIs('branch.index')">
+            <x-responsive-nav-link :href="route('branches.index')" :active="request()->routeIs('branches.*')">
                 branches
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('category.index')" :active="request()->routeIs('category.index')">
+            <x-responsive-nav-link :href="route('managers.index')" :active="request()->routeIs('managers.*')">
+                Managers
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('category.index')" :active="request()->routeIs('category.*')">
                 category
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('vendor.index')" :active="request()->routeIs('vendor.*')">
+                vendor
             </x-responsive-nav-link>
         </div>
 

@@ -109,12 +109,13 @@
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
                                                         @if ($category->image)
-                                                            <img src="{{ asset('storage/'.$category->image) }}" class="w-20 rounded">
+                                                            <img src="{{ asset('storage/' . $category->image) }}"
+                                                                class="w-20 rounded">
                                                         @endif
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">
-                                                        {{ $category->category_id  }}
+                                                        {{ $category->category_id ? $category->main_cat->name : '' }}
                                                     </td>
                                                     <td
                                                         class="px-6 py-4 text-sm font-medium text-gray-900 whitespace-nowrap">

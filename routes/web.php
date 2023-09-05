@@ -3,6 +3,7 @@
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\ManagerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\VendorController;
@@ -31,6 +32,14 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
+    Route::get('lang/{lang}',function($lang){
+        if($lang == 'ar' || $lang == 'en'){
+            session()->put('lang',$lang);
+            return back();
+        }else {
+            abort(500);
+        }
+    })->name('lang');
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -48,6 +57,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('category',CategoryController::class);
     Route::resource('vendor',VendorController::class);
     Route::resource('managers',ManagerController::class);
+    Route::resource('employees',EmployeeController::class);
 });
 
 require __DIR__.'/auth.php';

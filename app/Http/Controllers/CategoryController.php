@@ -82,6 +82,8 @@ class CategoryController extends Controller
         if($category->image && $request->file('image')){
             Storage::delete($category->image);
             $category->image = Storage::put("vendor_logo",$request->file('image'));
+        }elseif($request->file('image')){
+            $category->image = Storage::put("vendor_logo",$request->file('image'));
         }
         $category->save();
         return redirect()->route('category.index')->with('added', 'category updated');

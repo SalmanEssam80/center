@@ -40,9 +40,9 @@
                                 <div class="w-full">
                                     <x-input-label>category_id </x-input-label>
                                     <select name="category_id">
-                                        <option disabled  value="">select category</option>
+                                        <option  value="">select category</option>
                                         @foreach (App\models\Category::orderBy('name')->pluck('name', 'id')->toArray() as $id => $name)
-                                        <option {{ $id == old('category_id',$category->company_id) ? 'selected' : ''}} value="{{ $id }}">{{ $name}}</option>
+                                        <option {{ $id == old('category_id',$category->category_id) ? 'selected' : ''}} value="{{ $id }}">{{ $name}}</option>
                                         @endforeach
                                     </select>
                                     @error('category_id')

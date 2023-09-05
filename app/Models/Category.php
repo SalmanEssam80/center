@@ -22,6 +22,6 @@ class Category extends Model
 
     public function main_cat()
     {
-        return $this->belongsTo(Category::class);
+        return $this->belongsTo(Category::class,'category_id','id');
     }
 }

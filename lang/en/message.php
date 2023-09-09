@@ -2,6 +2,7 @@
 
 return [
     'Companies' => 'Companies',
+    'Companies_t' => '{1} Company|[2,*] Companies',
     'Add new company' => 'Add new company',
     'This is a success messsage' => 'This is a success messsage',
     'Search By Name Or Owner' => 'Search By Name Or Owner',

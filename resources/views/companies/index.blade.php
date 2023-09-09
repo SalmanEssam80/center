@@ -1,6 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="text-xl font-semibold leading-tight text-gray-800">{{ __('message.Companies')}}</h2>
+        <h2 class="text-xl font-semibold leading-tight text-gray-800">( {{ App\Models\Company::count() }} )
+            {{ trans_choice('message.Companies_t',App\Models\Company::count()) }}</h2>
     </x-slot>
 
     <div class="py-12">
@@ -8,7 +9,8 @@
             <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900">
                     <div class="flex justify-end">
-                        <x-primary-link href="{{ route('company.create') }}">{{ __('message.Add new company')}}</x-primary-button>
+                        <x-primary-link
+                            href="{{ route('company.create') }}">{{ __('message.Add new company') }}</x-primary-button>
                     </div>
                     <!-- component -->
                     <div class="p-5">
@@ -53,11 +55,12 @@
                     <form action="{{ route('company.index') }}">
                         <div class="flex justify-evenly">
                             <div>
-                                <x-input-label for='Search By Name'>{{__('message.Search By Name Or Owner')}}</x-input-label>
+                                <x-input-label
+                                    for='Search By Name'>{{ __('message.Search By Name Or Owner') }}</x-input-label>
                                 <x-text-input name='search'></x-text-input>
                             </div>
                             <div>
-                                <x-primary-button type="submit">{{__("message.Search")}}</x-primary-button>
+                                <x-primary-button type="submit">{{ __('message.Search') }}</x-primary-button>
                             </div>
                         </div>
                     </form>
@@ -75,23 +78,23 @@
                                                 </th>
                                                 <th scope="col"
                                                     class="px-6 py-4 text-sm font-medium text-left text-gray-900">
-                                                    {{__('message.Name')}}
+                                                    {{ __('message.Name') }}
                                                 </th>
                                                 <th scope="col"
                                                     class="px-6 py-4 text-sm font-medium text-left text-gray-900">
-                                                    {{__('message.Owner')}}
+                                                    {{ __('message.Owner') }}
                                                 </th>
                                                 <th scope="col"
                                                     class="px-6 py-4 text-sm font-medium text-left text-gray-900">
-                                                    {{__('message.Tex Number')}}
+                                                    {{ __('message.Tex Number') }}
                                                 </th>
                                                 <th scope="col"
                                                     class="px-6 py-4 text-sm font-medium text-left text-gray-900">
-                                                    {{__('message.Created At')}}
+                                                    {{ __('message.Created At') }}
                                                 </th>
                                                 <th scope="col"
                                                     class="px-6 py-4 text-sm font-medium text-left text-gray-900">
-                                                    {{__('message.Actions')}}
+                                                    {{ __('message.Actions') }}
                                                 </th>
                                             </tr>
                                         </thead>
@@ -141,7 +144,7 @@
                                                 </tr>
                                             @empty
                                                 <td colspan='5' class="text-center bg-gray-100 border-b">
-                                                   {{__('message.No Result Yet')}}
+                                                    {{ __('message.No Result Yet') }}
                                                 </td>
                                             @endforelse
                                         </tbody>

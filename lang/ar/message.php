@@ -2,6 +2,7 @@
 
 return [
     'Companies' => 'شركات',
+    'Companies_t' => '{1} شركة |{2} شركتان|[3,10] شركات|[11,*] شركة',
     'Add new company' => 'إضافة شركة جديدة',
     'This is a success messsage' => 'هذه رسالة نجاح',
     'Search By Name Or Owner' => 'البحث بالاسم أو المالك',

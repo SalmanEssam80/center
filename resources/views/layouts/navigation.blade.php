@@ -28,6 +28,11 @@
                     </x-nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('classRooms.index')" :active="request()->routeIs('classRooms.*')">
+                        Class Rooms
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('managers.index')" :active="request()->routeIs('managers.*')">
                         {{__('message.Managers')}}
                     </x-nav-link>
@@ -45,6 +50,16 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('vendor.index')" :active="request()->routeIs('vendor.*')">
                         {{__('message.Vendors')}}
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.*')">
+                        Courses
+                    </x-nav-link>
+                </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')">
+                        Schedules
                     </x-nav-link>
                 </div>
             </div>
@@ -117,6 +132,11 @@
             </x-responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('classRooms.index')" :active="request()->routeIs('classRooms.*')">
+                Class Rooms
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('managers.index')" :active="request()->routeIs('managers.*')">
                 {{__('message.Managers')}}
             </x-responsive-nav-link>
@@ -136,6 +156,16 @@
                 {{__('message.Vendors')}}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('courses.index')" :active="request()->routeIs('courses.*')">
+                Courses
+            </x-responsive-nav-link>
+        </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')">
+                Schedules
+            </x-responsive-nav-link>
+        </div>
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
@@ -148,7 +178,7 @@
                 <x-dropdown-link :href="route('lang',__('message.c_lang'))">
                     {{ __('message.cc_lang') }}
                 </x-dropdown-link>
-                
+
                 <x-responsive-nav-link :href="route('profile.edit')">
                     {{ __('Profile') }}
                 </x-responsive-nav-link>

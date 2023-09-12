@@ -9,4 +9,16 @@ class Schedule extends Model
 {
     use HasFactory;
     protected $guarded = ['id'];
+
+    public function course(){
+        return $this->belongsTo(Course::class);
+    }
+
+    public function classRoom(){
+        return $this->belongsTo(ClassRoom::class);
+    }
+
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
 }

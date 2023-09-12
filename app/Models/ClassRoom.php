@@ -13,4 +13,8 @@ class ClassRoom extends Model
     public function Branch(){
         return $this->belongsTo(Branch::class);
     }
+
+    public function schedule(){
+        return $this->hasMany(Schedule::class);
+    }
 }

@@ -3,13 +3,12 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CompanyCollection;
-use App\Http\Resources\CompanyResource;
-use App\Models\Company;
+use App\Http\Resources\BranchResource;
+use App\Models\Branch;
 use Exception;
 use Illuminate\Http\Request;
 
-class CompanyController extends Controller
+class BranchController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,14 +16,13 @@ class CompanyController extends Controller
     public function index()
     {
         try {
-            // $company = CompanyResource::collection(Company::all());
-            $company = new CompanyCollection(Company::all());
-            return response()->json($company);
+            $branch = BranchResource::collection(Branch::all());
+            return response()->json($branch);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'failed',
-                'error' => $e->getMessage()
-            ], 401);
+                'status' => 'faild',
+                'message' => $e->getMessage()
+            ],500);
         }
     }
 
@@ -34,19 +32,19 @@ class CompanyController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'owner' => 'required',
-            'tax_number' => 'required',
+            'name' => 'required',
+            'location' => 'required',
+            'company_id' => 'required',
         ]);
         try {
-            $company = Company::create($request->all());
+            $branch = Branch::create($request->all());
             return response()->json([
                 'status' => 'company added',
-                'company' => new CompanyResource($company)
+                'message' => new  BranchResource($branch)
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'failed',
+                'status' => 'faild',
                 'message' => $e->getMessage()
             ]);
         }
@@ -58,10 +56,10 @@ class CompanyController extends Controller
     public function show(string $id)
     {
         try {
-            $company = Company::findOrFail($id);
+            $branch = Branch::findOrFail($id);
             return response()->json([
-                'status' => 'company returned',
-                'company' => new CompanyResource($company)
+                'status' => 'company return',
+                'message' => new  BranchResource($branch)
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -77,11 +75,11 @@ class CompanyController extends Controller
     public function update(Request $request, string $id)
     {
         try {
-            $company = Company::findOrFail($id);
-            $company->update($request->all());
+            $branch = Branch::findOrFail($id);
+            $branch->update($request->all());
             return response()->json([
                 'status' => 'company updated',
-                'company' => new CompanyResource($company)
+                'message' => new  BranchResource($branch)
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -97,13 +95,16 @@ class CompanyController extends Controller
     public function destroy(string $id)
     {
         try {
-            $company = Company::findOrFail($id);
-            if ($company) {
-                $company->delete();
+            $branch = Branch::findOrFail($id);
+            if ($branch) {
+                $branch->delete();
                 return response()->json([
-                    'status' => 'company deleted',
+                    'status' => 'company deleted'
                 ]);
             }
+            return response()->json([
+                'status' => 'company deleted'
+            ]);
         } catch (Exception $e) {
             return response()->json([
                 'status' => 'faild',

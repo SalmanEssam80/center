@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'type'
+        'type',
+        'api_token'
     ];
 
     /**
@@ -54,5 +55,9 @@ class User extends Authenticatable
 
     public function schedule(){
         return $this->hasMany(Schedule::class);
+    }
+
+    public function posts(){
+        return $this->hasMany(Post::class);
     }
 }

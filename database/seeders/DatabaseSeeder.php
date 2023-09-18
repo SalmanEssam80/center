@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
         \App\Models\ClassRoom::factory(50)->create();
         \App\Models\Vendor::factory(50)->create();
         \App\Models\Course::factory(50)->create();
+        \App\Models\Post::factory(50)->create();
 
         foreach(range(1,50) as $num){
             Employee::find($num)->update(['user_id'=>$num]);

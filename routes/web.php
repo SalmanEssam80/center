@@ -64,6 +64,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('classRooms',ClassRoomController::class);
     Route::resource('courses',CourseController::class);
     Route::resource('schedules',ScheduleController::class);
+
+    Route::post('get_sub_categories',[CategoryController::class,'get_sub_categories'])->name('get_sub_categories');
 });
 
 require __DIR__.'/auth.php';

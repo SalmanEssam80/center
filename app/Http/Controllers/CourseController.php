@@ -13,10 +13,10 @@ class CourseController extends Controller
     public function index(Request $request)
     {
         $courses = Course::query();
-        if ($request->has('search')){
-            $courses->where('name' , 'like' , '%' . $request->search. '%');
+        if ($request->has('search')) {
+            $courses->where('name', 'like', '%' . $request->search . '%');
         }
-        return view('courses.index',['courses' => $courses->orderBy('created_at','desc')->orderBy('name')->paginate(10)]);
+        return view('courses.index', ['courses' => $courses->orderBy('created_at', 'desc')->orderBy('name')->paginate(10)]);
     }
 
     /**
@@ -37,11 +37,19 @@ class CourseController extends Controller
             'hours' => 'required|numeric',
             'price' => 'required|numeric',
             'vendor_id' => 'required',
-            'category_id' => 'required',
+            'main_category_id' => 'required',
+            'sub_category_id' => 'nullable',
             'user_id' => 'required',
         ]);
-        Course::create($request->except('_token'));
-        return redirect()->route('courses.index')->with('added' , 'New Course Added');
+        $course = new Course();
+        $course->name = $request->name;
+        $course->hours = $request->hours;
+        $course->price = $request->price;
+        $course->vendor_id = $request->vendor_id;
+        $course->category_id  = ($request->sub_category_id)  ? $request->sub_category_id : $request->main_category_id;
+        $course->user_id = $request->user_id;
+        $course->save();
+        return redirect()->route('courses.index')->with('added', 'New Course Added');
     }
 
     /**
@@ -58,7 +66,7 @@ class CourseController extends Controller
     public function edit(string $id)
     {
         $course = Course::findOrFail($id);
-        return view('courses.edit' ,compact('course'));
+        return view('courses.edit', compact('course'));
     }
 
     /**
@@ -76,7 +84,7 @@ class CourseController extends Controller
         ]);
         $course = Course::findOrFail($id);
         $course->update($request->except('_token'));
-        return redirect()->route('courses.index')->with('added' , 'course updated');
+        return redirect()->route('courses.index')->with('added', 'course updated');
     }
 
     /**

@@ -46,7 +46,7 @@ class CategoryController extends Controller
             Category::create([
                 'name' => $request->name,
                 'image' => $request->file('image')->store('vendor_logo'),
-                'category_id'=> $request->category_id
+                'category_id' => $request->category_id
             ]);
             return redirect()->route('category.index')->with('added', 'New category Added');
         } catch (Exception $e) {
@@ -79,11 +79,11 @@ class CategoryController extends Controller
         );
         $category->name = $request->name;
         $category->category_id = $request->category_id;
-        if($category->image && $request->file('image')){
+        if ($category->image && $request->file('image')) {
             Storage::delete($category->image);
-            $category->image = Storage::put("vendor_logo",$request->file('image'));
-        }elseif($request->file('image')){
-            $category->image = Storage::put("vendor_logo",$request->file('image'));
+            $category->image = Storage::put("vendor_logo", $request->file('image'));
+        } elseif ($request->file('image')) {
+            $category->image = Storage::put("vendor_logo", $request->file('image'));
         }
         $category->save();
         return redirect()->route('category.index')->with('added', 'category updated');
@@ -95,8 +95,16 @@ class CategoryController extends Controller
     public function destroy(string $id)
     {
         $category = Category::findOrFail($id);
-        if($category->image) Storage::delete($category->image);
+        if ($category->image) Storage::delete($category->image);
         $category->destroy($id);
         return back()->with('added', 'category deleted');
+    }
+
+    public function get_sub_categories(Request $request)
+    {
+        $sub_categories = Category::where('category_id' , $request->category_id)->get();
+        return response()->json([
+            'sub_categories' => $sub_categories
+        ]);
     }
 }

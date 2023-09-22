@@ -40,7 +40,7 @@
                                 </div>
                                 <div class="w-full">
                                     <x-input-label>Vendor</x-input-label>
-                                    <select name="vendor_id">
+                                    <select name="vendor_id" class="w-full">
                                         <option disabled selected value="">select Vendor</option>
                                         @foreach (App\models\Vendor::orderBy('name')->pluck('name', 'id')->toArray() as $id => $name)
                                             <option value="{{ $id }}">{{ $name }}</option>
@@ -52,19 +52,28 @@
                                 </div>
                                 <div class="w-full">
                                     <x-input-label>Category</x-input-label>
-                                    <select name="category_id">
+                                    <select name="main_category_id" id="category" class="w-full">
                                         <option disabled selected value="">select Category</option>
-                                        @foreach (App\models\Category::orderBy('name')->pluck('name', 'id')->toArray() as $id => $name)
-                                            <option value="{{ $id }}">{{ $name }}</option>
+                                        @foreach (App\models\Category::whereNull('category_id')->get() as $category)
+                                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                                         @endforeach
                                     </select>
-                                    @error('category_id')
+                                    @error('main_category_id')
+                                        <div class="font-bold text-red-600">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                                <div class="w-full">
+                                    <x-input-label>Sub Category</x-input-label>
+                                    <select name="sub_category_id" id="subcategory" class="w-full">
+                                        <option disabled selected value="">Select Category</option>
+                                    </select>
+                                    @error('sub_category_id')
                                         <div class="font-bold text-red-600">{{ $message }}</div>
                                     @enderror
                                 </div>
                                 <div class="w-full">
                                     <x-input-label>User</x-input-label>
-                                    <select name="user_id">
+                                    <select name="user_id" class="w-full">
                                         <option disabled selected value="">select User</option>
                                         @foreach (App\models\User::orderBy('name')->pluck('name', 'id')->toArray() as $id => $name)
                                             <option value="{{ $id }}">{{ $name }}</option>
@@ -84,4 +93,35 @@
             </div>
         </div>
     </div>
+    <script type="text/javascript">
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $(document).ready(function() {
+            $('#category').on('change', function(e) {
+                var cat_id = e.target.value;
+                // console.log(cat_id)
+                $.ajax({
+                    url: "{{ route('get_sub_categories') }}",
+                    type: "POST",
+                    data: {
+                        category_id: cat_id
+                    },
+                    success: function(data) {
+                        // console.log('success')
+                        // console.log(data.sub_categories)
+                        $('#subcategory').empty();
+                        $('#subcategory').append('<option value="">Select Category</option>');
+                        $.each(data.sub_categories, function(index,
+                            subcategory) {
+                            $('#subcategory').append('<option value="' + subcategory
+                                .id + '">' + subcategory.name + '</option>');
+                        })
+                    }
+                })
+            });
+        });
+    </script>
 </x-app-layout>

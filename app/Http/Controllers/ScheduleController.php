@@ -14,7 +14,9 @@ class ScheduleController extends Controller
     {
         $schedules = Schedule::query();
         if ($request->has('search')) {
-            $schedules->where('name', 'like', '%' . $request->search . '%');
+            $schedules->whereHas('course',function($q) use($request){
+                $q->where('name', 'like', '%' . $request->search . '%');
+            });
         }
         return view('schedules.index', ['schedules' => $schedules->orderBy('created_at', 'desc')->paginate(10)]);
     }

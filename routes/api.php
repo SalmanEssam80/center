@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\api\BranchController;
+use App\Http\Controllers\api\ClassRoomController;
 use App\Http\Controllers\api\CompanyController;
+use App\Http\Controllers\api\EmployeeController;
+use App\Http\Controllers\api\ManagerController;
 use App\Http\Controllers\api\UserAuthController;
 use App\Http\Controllers\PostController;
 use Illuminate\Http\Request;
@@ -24,6 +27,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::apiResource('companies',CompanyController::class);
 Route::apiResource('branches',BranchController::class);
+Route::apiResource('managers',ManagerController::class);
+Route::apiResource('classRooms',ClassRoomController::class);
+Route::apiResource('employees',EmployeeController::class);
 
 Route::post('user/auth/login',[UserAuthController::class,'login']);
 Route::post('user/auth/register',[UserAuthController::class,'register']);

@@ -3,12 +3,12 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\BranchResource;
-use App\Models\Branch;
+use App\Http\Resources\ManagerResource;
+use App\Models\Manager;
 use Exception;
 use Illuminate\Http\Request;
 
-class BranchController extends Controller
+class ManagerController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,13 +16,13 @@ class BranchController extends Controller
     public function index()
     {
         try {
-            $branch = BranchResource::collection(Branch::all());
-            return response()->json($branch);
+            $manager = ManagerResource::collection(Manager::all()) ;
+            return response()->json($manager);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'faild',
-                'message' => $e->getMessage()
-            ],500);
+                'status' => 'failed',
+                'message' => $e->getMessage(),
+            ],401);
         }
     }
 
@@ -33,20 +33,20 @@ class BranchController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'location' => 'required',
+            'mobile' => 'required|numeric',
             'company_id' => 'required',
         ]);
         try {
-            $branch = Branch::create($request->all());
+            $manager = Manager::create($request->all());
             return response()->json([
-                'status' => 'company added',
-                'message' => new  BranchResource($branch)
+                'status' => 'manager added',
+                'message' => new ManagerResource($manager)
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'faild',
-                'message' => $e->getMessage()
-            ]);
+                'status' => 'failed',
+                'message' => $e->getMessage(),
+            ],401);
         }
     }
 
@@ -56,16 +56,16 @@ class BranchController extends Controller
     public function show(string $id)
     {
         try {
-            $branch = Branch::findOrFail($id);
+            $manager = Manager::findOrFail($id);
             return response()->json([
-                'status' => 'company return',
-                'message' => new  BranchResource($branch)
+                'status' =>'managr return',
+                'message' => new ManagerResource($manager),
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'faild',
-                'message' => $e->getMessage()
-            ]);
+                'status' =>'failed',
+                'message' => $e->getMessage(),
+            ],401);
         }
     }
 
@@ -76,21 +76,21 @@ class BranchController extends Controller
     {
         $request->validate([
             'name' => 'required',
-            'location' => 'required',
+            'mobile' => 'required|numeric',
             'company_id' => 'required',
         ]);
         try {
-            $branch = Branch::findOrFail($id);
-            $branch->update($request->all());
+            $manager = Manager::findOrFail($id);
+            $manager->update($request->all());
             return response()->json([
-                'status' => 'company updated',
-                'message' => new  BranchResource($branch)
+                'status' =>'managr updated',
+                'message' => new ManagerResource($manager),
             ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'faild',
-                'message' => $e->getMessage()
-            ]);
+                'status' =>'failed',
+                'message' => $e->getMessage(),
+            ],401);
         }
     }
 
@@ -100,21 +100,18 @@ class BranchController extends Controller
     public function destroy(string $id)
     {
         try {
-            $branch = Branch::findOrFail($id);
-            if ($branch) {
-                $branch->delete();
+            $manager = Manager::findOrFail($id);
+            if ($manager) {
+                $manager->delete();
                 return response()->json([
-                    'status' => 'company deleted'
+                    'status' =>'managr deleted',
                 ]);
             }
-            return response()->json([
-                'status' => 'company deleted'
-            ]);
         } catch (Exception $e) {
             return response()->json([
-                'status' => 'faild',
-                'message' => $e->getMessage()
-            ]);
+                'status' =>'failed',
+                'message' => $e->getMessage(),
+            ],401);
         }
     }
 }
